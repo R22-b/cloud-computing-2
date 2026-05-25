@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Cloud Dashboard - SVCE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">☁️ Student Cloud Dashboard</div>
+            <div class="nav-subtitle">Powered by Google App Engine · Flask · Python</div>
+        </div>
+        <div class="nav-right">
+            <span class="badge">GAE Standard</span>
+            <span class="badge">Python 3.9</span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <header class="page-header">
+            <h1>🏛️ SVCE — Sri Venkateshwara College of Engineering</h1>
+            <p class="dept">Department of CSE (Artificial Intelligence) · Sem VI</p>
+            <p class="subject">Subject: Cloud Computing and Security · BIS613D · Assignment-I</p>
+        </header>
+
+        <div class="grid-container">
+            <!-- Student Information -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">👤</span> Student Information
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Name</span>
+                        <span class="info-value">Alex Johnson</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">alex.j@university.edu</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">GPA</span>
+                        <span class="info-value">3.8</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Courses</span>
+                        <span class="info-value">Cloud Computing, Distributed Systems, Cybersecurity</span>
+                    </div>
+                    <div class="info-row storage-row">
+                        <span class="info-label">Storage</span>
+                        <span class="info-value">1.2 / 5.0 GB</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 24%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Info -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">🖥️</span> Server Info (Cloud Hosting Proof)
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Hostname</span>
+                        <span class="info-value">{{ server_info.hostname }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Platform</span>
+                        <span class="info-value">{{ server_info.platform }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Timestamp</span>
+                        <span class="info-value">{{ server_info.timestamp }}</span>
+                    </div>
+                    <div class="info-row ua-row">
+                        <span class="info-label">User<br>Agent</span>
+                        <span class="info-value ua-value">{{ server_info.user_agent }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud Resources -->
+            <div class="card col-span-2 resource-card">
+                <div class="card-header">
+                    <span class="icon">☁️</span> Cloud Resources
+                </div>
+                <div class="card-body resource-list">
+                    <div class="resource-item">
+                        <div class="res-info">
+                            <h4>Compute Engine</h4>
+                            <p>VM · $0.12/hr</p>
+                        </div>
+                        <div class="res-status">
+                            <span class="status-text text-green">Running</span>
+                            <div class="res-bar"><div class="fill" style="width: 85%;"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <div class="res-info">
+                            <h4>Cloud Storage</h4>
+                            <p>Storage · $0.05/hr</p>
+                        </div>
+                        <div class="res-status">
+                            <span class="status-text text-blue">Active</span>
+                            <div class="res-bar"><div class="fill" style="width: 60%;"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="res-info">
+                            <h4>App Engine</h4>
+                            <p>PaaS · $0.2/hr</p>
+                        </div>
+                        <div class="res-status">
+                            <span class="status-text text-purple">Deployed</span>
+                            <div class="res-bar"><div class="fill" style="width: 90%;"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="res-info">
+                            <h4>Cloud Functions</h4>
+                            <p>Serverless · $0.01/hr</p>
+                        </div>
+                        <div class="res-status">
+                            <span class="status-text text-yellow">Idle</span>
+                            <div class="res-bar"><div class="fill" style="width: 20%;"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="resource-item">
+                        <div class="res-info">
+                            <h4>BigQuery</h4>
+                            <p>Database · $0.3/hr</p>
+                        </div>
+                        <div class="res-status">
+                            <span class="status-text text-blue">Querying</span>
+                            <div class="res-bar"><div class="fill" style="width: 45%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assignments -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">📝</span> Assignments
+                </div>
+                <div class="card-body">
+                    {% if assignments %}
+                        <ul class="assignment-list">
+                        {% for asm in assignments %}
+                            <li>
+                                <span class="asm-title">{{ asm.title }}</span>
+                                {% if asm.link %}
+                                <a href="{{ asm.link }}" target="_blank" class="asm-link">View</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="empty-state">No upcoming assignments! 🎉</p>
+                    {% endif %}
+
+                    <button class="submit-btn add-asm-btn" onclick="document.getElementById('add-asm-form').style.display='block'; this.style.display='none';">Add Assignment</button>
+                    
+                    <form id="add-asm-form" method="POST" action="/" style="display: none; margin-top: 1rem;">
+                        <input type="hidden" name="add_assignment" value="1">
+                        <div class="form-group">
+                            <input type="text" name="assignment_title" placeholder="Project Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="url" name="assignment_link" placeholder="GitHub / Project URL (optional)">
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="submit" class="submit-btn" style="flex: 1;">Save</button>
+                            <button type="button" class="submit-btn cancel-btn" onclick="document.getElementById('add-asm-form').style.display='none'; document.querySelector('.add-asm-btn').style.display='block';" style="flex: 1;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cloud Guestbook -->
+            <div class="card guestbook-card">
+                <div class="card-header">
+                    <span class="icon">💬</span> Cloud Guestbook
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea name="message" rows="3" placeholder="Leave a message..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            SVCE · Department of CSE (AI) · Cloud Computing and Security (BIS613D) · Deployed on Google App Engine
+        </footer>
+    </div>
+</body>
+</html>
